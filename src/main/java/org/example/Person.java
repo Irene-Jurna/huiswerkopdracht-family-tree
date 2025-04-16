@@ -113,10 +113,84 @@ public class Person {
     void addParents(Person mother, Person father) {
         setMother(mother);
         setFather(father);
-        System.out.println("Mijn moeder is: " + mother.name + " " + mother.lastName + ".\nMijn vader is: " + father.name + " " + father.lastName);
+
+        mother.addChild(this);
+        father.addChild(this);
     };
-    void addChildren() {};
-    void addPets() {};
+
+    void printParents(Person person) {
+        Person mother = person.getMother();
+        Person father = person.getFather();
+        System.out.println("Mijn moeder is: " + mother.name + " " + mother.lastName + ".\nMijn vader is: " + father.name + " " + father.lastName);
+    }
+
+    void addChild(Person child) {
+        if (children == null) {
+            children = new ArrayList<>();
+        }
+
+        if (!children.contains(child)) {
+            children.add(child);
+        }
+
+        if (this.sex.equalsIgnoreCase("vrouw")) {
+            child.setMother(this);
+        } else if (this.sex.equalsIgnoreCase("man")) {
+            child.setFather(this);
+        }
+    };
+
+    void printChildren() {
+        if (children != null && !children.isEmpty()) {
+            System.out.println("Kinderen van " + name + ":");
+            for (Person child : children) {
+                System.out.println("- " + child.getName() + " " + child.getLastName());
+            }
+        } else {
+            System.out.println(name + " heeft geen kinderen.");
+        }
+    }
+
+    void addPet(Pet pet) {
+        if (pets == null) {
+            pets = new ArrayList<>();
+        }
+
+        if (!pets.contains(pet)) {
+            pets.add(pet);
+        }
+    };
+
+    void printPets() {
+        if (pets != null && !pets.isEmpty()) {
+            System.out.println(name + "s huisdieren zijn: ");
+            for (Pet pet : pets) {
+                System.out.println("- " + pet.name);
+            }
+        } else {
+            System.out.println("Ik heb geen huisdieren");
+        }
+    }
     void addSiblings() {};
-    void getGrandChildren() {};
+
+    void getGrandChildren() {
+        if (children == null || children.isEmpty()) {
+            System.out.println(name + " heeft geen kinderen en dus ook geen kleinkinderen");
+            return;
+        }
+
+        List<Person> grandChildren = new ArrayList<>();
+        for (Person child : children) {
+            if (child.getChildren() != null && !child.getChildren().isEmpty()) {grandChildren.addAll(child.getChildren());}
+        }
+
+        if (!grandChildren.isEmpty()) {
+            System.out.println(name + "s kleinkinderen zijn: ");
+            for (Person child : grandChildren) {
+                System.out.println("- " + child.getName() + " " + child.getLastName());
+            }
+        } else {
+            System.out.println(name + " heeft geen kleinkinderen");
+        }
+    };
 }
