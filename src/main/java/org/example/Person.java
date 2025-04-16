@@ -110,7 +110,11 @@ public class Person {
         this.pets = pets;
     }
 
-    void addParents() {};
+    void addParents(Person mother, Person father) {
+        setMother(mother);
+        setFather(father);
+        System.out.println("Mijn moeder is: " + mother.name + " " + mother.lastName + ".\nMijn vader is: " + father.name + " " + father.lastName);
+    };
     void addChildren() {};
     void addPets() {};
     void addSiblings() {};
