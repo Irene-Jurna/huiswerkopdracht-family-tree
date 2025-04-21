@@ -119,7 +119,7 @@ public class Person {
         this.pets = pets;
     }
 
-    void addParents(Person mother, Person father) {
+    public void addParents(Person mother, Person father) {
         setMother(mother);
         setFather(father);
 
@@ -142,6 +142,10 @@ public class Person {
             children.add(child);
         }
 
+        assignParent(child);
+    };
+
+    void assignParent(Person child) {
         if (this.sex == Gender.VROUW) {
             child.setMother(this);
         } else if (this.sex == Gender.MAN) {
@@ -149,7 +153,7 @@ public class Person {
         } else if (this.sex == Gender.NON_BINAIR || this.sex == Gender.ANDERS) {
             child.addOtherParent(this);
         }
-    };
+    }
 
     void addOtherParent(Person otherParent) {
         if (this.otherParent == null) {
