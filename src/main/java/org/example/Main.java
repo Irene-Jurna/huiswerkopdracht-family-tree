@@ -1,17 +1,36 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println("Dit is mijn familie:");
+        Person irene = new Person("Irene", "Judith", "Jurna", "vrouw", 34 );
+        Person hanneke = new Person("Hanneke", "Johanna Christina Wilhelmina", "Abbring", "vrouw", 61);
+        Person martin = new Person("Martin", "Gerardus", "Jurna", "man", 61);
+        Person rianne = new Person("Rianne", "Hanna", "Jurna", "vrouw", 30);
+        Person joris = new Person ("Joris", "Maarten", "Jurna", "man", 32);
+        Person maud = new Person ("Maud", "Anne", "Bansberg", "vrouw", 1);
+        Person moos = new Person ("Moos", "Joas", "Jurna", "man", 2);
+        Pet punk = new Pet("Punk", 12, "cat");
+        Person secondMother = new Person("Tineke", "Wijnstra", 61, "v");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        irene.addBiologicalParents(hanneke, martin);
+        irene.addOtherParent(secondMother);
+        irene.printParents(irene);
+
+        hanneke.addChild(irene);
+        hanneke.addChild(rianne);
+        hanneke.addChild(joris);
+        hanneke.printChildren();
+
+        irene.addPet(punk);
+        irene.printPets();
+
+        rianne.addChild(maud);
+        joris.addChild(moos);
+
+        hanneke.getGrandChildren();
+        irene.getGrandChildren();
+
+        irene.printSiblings();
         }
     }
-}
