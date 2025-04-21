@@ -133,7 +133,7 @@ public class Person {
         System.out.println("Mijn moeder is: " + mother.name + " " + mother.lastName + ".\nMijn vader is: " + father.name + " " + father.lastName);
     }
 
-    void addChild(Person child) {
+    public void addChild(Person child) {
         if (children == null) {
             children = new ArrayList<>();
         }
@@ -176,7 +176,7 @@ public class Person {
         }
     }
 
-    void addPet(Pet pet) {
+    public void addPet(Pet pet) {
         if (pets == null) {
             pets = new ArrayList<>();
         }

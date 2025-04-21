@@ -1,7 +1,10 @@
 import org.example.Gender;
 import org.example.Person;
+import org.example.Pet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,5 +63,37 @@ public class PersonTest {
 
         assertTrue(testPersonAnnesMother.getChildren().contains(testPersonWithNameAnne));
         assertTrue(testPersonAnnesFather.getChildren().contains(testPersonWithNameAnne));
+    }
+
+    @Test
+    public void testAddChild() {
+        testPersonAnnesMother.addChild(testPersonWithNameAnne);
+
+        assertEquals(1, testPersonAnnesMother.getChildren().size());
+        assertEquals(Arrays.asList(testPersonWithNameAnne), testPersonAnnesMother.getChildren());
+    }
+
+    @Test
+    public void testAddChildren() {
+        Person father = new Person ("Rayan", "Amali", 40, "man");
+        Person child1 = new Person ("Mohammed", "Amali", 4, "man");
+        Person child2 = new Person ("Eva", "Amali", 0, "v");
+
+        father.addChild(child1);
+        father.addChild(child2);
+
+        assertEquals(2, father.getChildren().size());
+        assertEquals(Arrays.asList(child1, child2), father.getChildren());
+    }
+
+    @Test
+    public void testAddPet() {
+        Pet cat = new Pet("Kela", 10, "cat");
+
+        testPersonWithNameAnne.addPet(cat);
+
+        assertEquals(1, testPersonWithNameAnne.getPets().size());
+        assertEquals(cat, testPersonWithNameAnne.getPets().get(0));
+        assertEquals(Arrays.asList(cat), testPersonWithNameAnne.getPets());
     }
 }
