@@ -7,10 +7,11 @@ public class Person {
     String name;
     String middleName;
     String lastName;
-    String sex;
+    Gender sex;
     int age;
     Person mother;
     Person father;
+    List<Person> otherParent;
     List<Person> siblings;
     List<Person> children;
     List<Pet> pets;
@@ -19,14 +20,14 @@ public class Person {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-        this.sex = sex;
+        this.sex = Gender.fromString(sex);
     }
 
     public Person(String name, String middleName, String lastName, String sex, int age) {
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.sex = sex;
+        this.sex = Gender.fromString(sex);
         this.age = age;
     }
 
@@ -54,11 +55,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getSex() {
+    public Gender getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Gender sex) {
         this.sex = sex;
     }
 
@@ -84,6 +85,14 @@ public class Person {
 
     public void setFather(Person father) {
         this.father = father;
+    }
+
+    public List<Person> getOtherParent() {
+        return otherParent;
+    }
+
+    public void setOtherParent(List<Person> otherParent) {
+        this.otherParent = otherParent;
     }
 
     public List<Person> getSiblings() {
@@ -133,12 +142,24 @@ public class Person {
             children.add(child);
         }
 
-        if (this.sex.equalsIgnoreCase("vrouw")) {
+        if (this.sex == Gender.VROUW) {
             child.setMother(this);
-        } else if (this.sex.equalsIgnoreCase("man")) {
+        } else if (this.sex == Gender.MAN) {
             child.setFather(this);
+        } else if (this.sex == Gender.NON_BINAIR || this.sex == Gender.ANDERS) {
+            child.addOtherParent(this);
         }
     };
+
+    void addOtherParent(Person otherParent) {
+        if (this.otherParent == null) {
+            this.otherParent = new ArrayList<>();
+        }
+
+        if (!this.otherParent.contains(otherParent)) {
+            this.otherParent.add(otherParent);
+        }
+    }
 
     void printChildren() {
         if (children != null && !children.isEmpty()) {
