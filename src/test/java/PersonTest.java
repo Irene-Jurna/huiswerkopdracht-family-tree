@@ -96,4 +96,9 @@ public class PersonTest {
         assertEquals(cat, testPersonWithNameAnne.getPets().get(0));
         assertEquals(Arrays.asList(cat), testPersonWithNameAnne.getPets());
     }
+
+    @Test
+    public void testNoPets() {
+        assertEquals(0, testPersonAnnesMother.getPets().size());
+    }
 }

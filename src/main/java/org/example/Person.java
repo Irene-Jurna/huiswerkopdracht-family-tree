@@ -112,6 +112,9 @@ public class Person {
     }
 
     public List<Pet> getPets() {
+        if (pets == null) {
+            pets = new ArrayList<>();
+        }
         return pets;
     }
 
