@@ -4,6 +4,8 @@ import org.example.Pet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +17,7 @@ public class PersonTest {
     Person testPersonWithOtherGender;
     Person testPersonAnnesMother;
     Person testPersonAnnesFather;
+    Person testPersonAnnesChild;
 
     @BeforeEach
     void setUp() {
@@ -22,6 +25,7 @@ public class PersonTest {
         testPersonWithOtherGender = new Person("Enric", "Lopez", 35, "non-binair");
         testPersonAnnesMother = new Person ("Mia", "Havinga", 65, "vrouw");
         testPersonAnnesFather = new Person ("Teun", "Smid", 63, "Man");
+        testPersonAnnesChild = new Person ("Fia", "Maria", "Smid", "vrouw", 2);
     }
 
     @Test
@@ -100,5 +104,24 @@ public class PersonTest {
     @Test
     public void testNoPets() {
         assertEquals(0, testPersonAnnesMother.getPets().size());
+    }
+
+    @Test
+    public void testGrandChildren() {
+        testPersonAnnesMother.addChild(testPersonWithNameAnne);
+        testPersonWithNameAnne.addChild(testPersonAnnesChild);
+
+        // Console-output testen
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        testPersonAnnesMother.getGrandChildren();
+
+        String expectedOutput = testPersonAnnesMother.getName() + "s kleinkinderen zijn:\n- Fia Smid";
+
+        assertEquals(expectedOutput, outContent.toString());
+
+        // Herstel console-output
+        System.setOut(System.out);
     }
 }

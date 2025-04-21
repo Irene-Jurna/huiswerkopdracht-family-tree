@@ -201,7 +201,7 @@ public class Person {
     }
     void addSiblings() {};
 
-    void getGrandChildren() {
+    public void getGrandChildren() {
         if (children == null || children.isEmpty()) {
             System.out.println(name + " heeft geen kinderen en dus ook geen kleinkinderen");
             return;
