@@ -11,8 +11,10 @@ public class Main {
         Person maud = new Person ("Maud", "Anne", "Bansberg", "vrouw", 1);
         Person moos = new Person ("Moos", "Joas", "Jurna", "man", 2);
         Pet punk = new Pet("Punk", 12, "cat");
+        Person secondMother = new Person("Tineke", "Wijnstra", 61, "v");
 
-        irene.addParents(hanneke, martin);
+        irene.addBiologicalParents(hanneke, martin);
+        irene.addOtherParent(secondMother);
         irene.printParents(irene);
 
         hanneke.addChild(irene);
@@ -28,5 +30,7 @@ public class Main {
 
         hanneke.getGrandChildren();
         irene.getGrandChildren();
+
+        irene.printSiblings();
         }
     }

@@ -60,7 +60,7 @@ public class PersonTest {
 
     @Test
     public void testAddParents() {
-        testPersonWithNameAnne.addParents(testPersonAnnesMother, testPersonAnnesFather);
+        testPersonWithNameAnne.addBiologicalParents(testPersonAnnesMother, testPersonAnnesFather);
 
         assertEquals(testPersonAnnesMother, testPersonWithNameAnne.getMother());
         assertEquals(testPersonAnnesFather, testPersonWithNameAnne.getFather());
@@ -117,7 +117,7 @@ public class PersonTest {
 
         testPersonAnnesMother.getGrandChildren();
 
-        String expectedOutput = testPersonAnnesMother.getName() + "s kleinkinderen zijn:\n- Fia Smid";
+        String expectedOutput = testPersonAnnesMother.getName() + "s kleinkinderen zijn: \n- Fia Smid\n";
 
         assertEquals(expectedOutput, outContent.toString());
 

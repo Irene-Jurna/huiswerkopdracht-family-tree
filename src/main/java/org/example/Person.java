@@ -12,7 +12,7 @@ public class Person {
     Person mother;
     Person father;
     List<Person> otherParent;
-    List<Person> siblings;
+    List<Person> siblings = new ArrayList<>();
     List<Person> children;
     List<Pet> pets;
 
@@ -104,6 +104,9 @@ public class Person {
     }
 
     public List<Person> getChildren() {
+        if (children == null) {
+            children = new ArrayList<>();
+        }
         return children;
     }
 
@@ -122,19 +125,16 @@ public class Person {
         this.pets = pets;
     }
 
-    public void addParents(Person mother, Person father) {
+    // FAMILY FUNCTIONS
+    public void addBiologicalParents(Person mother, Person father) {
         setMother(mother);
         setFather(father);
 
         mother.addChild(this);
         father.addChild(this);
-    };
 
-    void printParents(Person person) {
-        Person mother = person.getMother();
-        Person father = person.getFather();
-        System.out.println("Mijn moeder is: " + mother.name + " " + mother.lastName + ".\nMijn vader is: " + father.name + " " + father.lastName);
-    }
+        addSiblings(this);
+    };
 
     public void addChild(Person child) {
         if (children == null) {
@@ -168,38 +168,23 @@ public class Person {
         }
     }
 
-    void printChildren() {
-        if (children != null && !children.isEmpty()) {
-            System.out.println("Kinderen van " + name + ":");
-            for (Person child : children) {
-                System.out.println("- " + child.getName() + " " + child.getLastName());
+    void addSiblings(Person person) {
+        if (person.getMother() != null && person.getMother().getChildren() != null) {
+            for (Person child : person.getMother().getChildren()) {
+                if (!child.equals(person) && !person.getSiblings().contains(child)) {
+                    person.getChildren().add(child);
+                }
             }
-        } else {
-            System.out.println(name + " heeft geen kinderen.");
-        }
-    }
-
-    public void addPet(Pet pet) {
-        if (pets == null) {
-            pets = new ArrayList<>();
         }
 
-        if (!pets.contains(pet)) {
-            pets.add(pet);
+        if (person.getFather() != null && person.getFather().getChildren() != null) {
+            for (Person child : person.getFather().getChildren()) {
+                if (!child.equals(person) && !person.getSiblings().contains(child)) {
+                    person.getSiblings().add(child);
+                }
+            }
         }
     };
-
-    void printPets() {
-        if (pets != null && !pets.isEmpty()) {
-            System.out.println(name + "s huisdieren zijn: ");
-            for (Pet pet : pets) {
-                System.out.println("- " + pet.name);
-            }
-        } else {
-            System.out.println("Ik heb geen huisdieren");
-        }
-    }
-    void addSiblings() {};
 
     public void getGrandChildren() {
         if (children == null || children.isEmpty()) {
@@ -221,4 +206,58 @@ public class Person {
             System.out.println(name + " heeft geen kleinkinderen");
         }
     };
+
+    public void addPet(Pet pet) {
+        if (pets == null) {
+            pets = new ArrayList<>();
+        }
+
+        if (!pets.contains(pet)) {
+            pets.add(pet);
+        }
+    };
+
+    // PRINT FUNCTIONS
+    void printParents(Person person) {
+        Person mother = person.getMother();
+        Person father = person.getFather();
+        List<Person> otherParents = person.getOtherParent();
+        System.out.println("Mijn biologische moeder is: " + mother.name + " " + mother.lastName + ".\nMijn biologische vader is: " + father.name + " " + father.lastName + ". Verder zijn mijn ouders: ");
+        for (Person otherParent : otherParents) {
+            System.out.println("- " + otherParent.name + " " + otherParent.lastName);
+        }
+    }
+
+    void printSiblings() {
+        if (siblings != null && !siblings.isEmpty()) {
+            System.out.println("Broers/zussen van " + name);
+            for (Person sibling : siblings) {
+                System.out.println("- " + sibling.getName() + " " + sibling.getLastName());
+            }
+        } else {
+            System.out.println(name + " heeft geen broers of zussen.");
+        }
+    }
+
+    void printChildren() {
+        if (children != null && !children.isEmpty()) {
+            System.out.println("Kinderen van " + name + ":");
+            for (Person child : children) {
+                System.out.println("- " + child.getName() + " " + child.getLastName());
+            }
+        } else {
+            System.out.println(name + " heeft geen kinderen.");
+        }
+    }
+
+    void printPets() {
+        if (pets != null && !pets.isEmpty()) {
+            System.out.println(name + "s huisdieren zijn: ");
+            for (Pet pet : pets) {
+                System.out.println("- " + pet.name);
+            }
+        } else {
+            System.out.println("Ik heb geen huisdieren");
+        }
+    }
 }
